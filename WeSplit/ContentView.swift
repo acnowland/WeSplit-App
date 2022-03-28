@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    // comments to commit test
     // data
     @State private var checkAmount = 0.0
     @State private var numberPeople = 2
