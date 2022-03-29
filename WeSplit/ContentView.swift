@@ -24,12 +24,16 @@ struct ContentView: View {
         return ((checkAmount * (tipSelection / 100)) + checkAmount) / peopleCount
     }
     
+    var currencyFormatting: String {
+        return Locale.current.currencyCode ?? "USD"
+    }
+    
     
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                    TextField("Amount", value: $checkAmount, format: .currency(code: currencyFormatting))
                         .keyboardType(.decimalPad)
                         .focused($amountIsFocused)
                     Picker("Number of People", selection: $numberPeople){
@@ -46,11 +50,19 @@ struct ContentView: View {
                     }
                     .pickerStyle(.segmented)
                 } header: {
-                    Text("How much tip do you want to leave?")
+                    Text("Tip Percentage")
+                }
+                
+                Section {
+                    Text(checkAmount, format: .currency(code: currencyFormatting))
+                } header: {
+                    Text("Total: ")
                 }
                 
                 Section{
-                    Text(totalCheck, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                    Text(totalCheck, format: .currency(code: currencyFormatting))
+                } header: {
+                    Text("Amount Per person")
                 }
             }
             .navigationTitle("WeSplit")
